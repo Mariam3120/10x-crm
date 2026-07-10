@@ -1,0 +1,46 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.auth {
+  min-height: 100vh;
+  @include flex($justify: center, $align: center);
+  padding: $space-4;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 42rem;             // ~420px, per the spec
+  padding: $space-6;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: $radius-lg;
+  box-shadow: var(--shadow);
+  @include flex($direction: column, $gap: $space-5);
+}
+
+.auth-header {
+  text-align: center;
+  @include flex($direction: column, $align: center, $gap: $space-2);
+}
+
+.logo {
+  font-size: $fs-xl;
+  font-weight: $fw-bold;
+  &__accent { color: var(--accent); }   // "CRM" in purple
+}
+
+.auth-card__title    { font-size: $fs-2xl; }
+.auth-card__subtitle { font-size: $fs-sm; color: var(--text-muted); }
+
+.auth-card__switch {
+  text-align: center;
+  font-size: $fs-sm;
+  color: var(--text-muted);
+}
+
+.link {
+  color: var(--accent);
+  font-weight: $fw-medium;
+  &:hover { text-decoration: underline; }
+}
+

@@ -1,0 +1,24 @@
+@use '../abstracts/variables' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $space-3 $space-5;
+  border-radius: $radius-md;
+  font-size: $fs-base;
+  font-weight: $fw-medium;
+  font-family: inherit;
+  transition: background-color $transition, transform $transition;
+
+  &--primary {
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+
+    &:hover  { background-color: var(--accent-hover); }
+    &:active { transform: translateY(1px); }
+  }
+
+  &--block { width: 100%; }
+}

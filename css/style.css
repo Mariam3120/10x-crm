@@ -1,0 +1,238 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+html {
+  font-size: 62.5%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+label {
+  cursor: pointer;
+  font: inherit;
+}
+
+:root {
+  --lead: #3b82f6;
+  --contacted: #f59e0b;
+  --won: #22c55e;
+  --lost: #ef4444;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --bg: #0f1117;
+  --surface: #181b24;
+  --surface-2: #212530;
+  --border: #2a2f3a;
+  --text: #e6e8ee;
+  --text-muted: #9aa0ae;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.light {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --surface-2: #f0f1f4;
+  --border: #e2e5ea;
+  --text: #1a1d24;
+  --text-muted: #5c6270;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Roboto", system-ui, sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1.2rem 2.4rem;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  font-family: inherit;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.btn--primary {
+  background-color: var(--accent);
+  color: var(--accent-contrast);
+}
+.btn--primary:hover {
+  background-color: var(--accent-hover);
+}
+.btn--primary:active {
+  transform: translateY(1px);
+}
+.btn--block {
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.form__label {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.form__input {
+  padding: 1.2rem 1.6rem;
+  font-size: 1.6rem;
+  font-family: inherit;
+  color: var(--text);
+  background-color: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form__input::placeholder {
+  color: var(--text-muted);
+}
+.form__input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(114, 80, 252, 0.25);
+}
+
+.form__input.input-error {
+  border-color: var(--danger);
+}
+
+.form__error {
+  font-size: 1.2rem;
+  color: var(--danger);
+  min-height: 1.6rem;
+}
+
+.form__error--global {
+  text-align: center;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1.6rem;
+  right: 1.6rem;
+  z-index: 100;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 999px;
+  font-size: 2rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.theme-toggle:hover {
+  transform: scale(1.05);
+}
+
+.auth {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.6rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 42rem;
+  padding: 3.2rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.6rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.auth-header {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.logo {
+  font-size: 2.8rem;
+  font-weight: 700;
+}
+.logo__accent {
+  color: var(--accent);
+}
+
+.auth-card__title {
+  font-size: 3.6rem;
+}
+
+.auth-card__subtitle {
+  font-size: 1.4rem;
+  color: var(--text-muted);
+}
+
+.auth-card__switch {
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--text-muted);
+}
+
+.link {
+  color: var(--accent);
+  font-weight: 500;
+}
+.link:hover {
+  text-decoration: underline;
+}
+
+/*# sourceMappingURL=style.css.map */
