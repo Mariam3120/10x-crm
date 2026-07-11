@@ -39,7 +39,7 @@ export function showFieldError(fieldId, message) {
   const input = document.querySelector(`#${fieldId}`);
   const errorBox = document.querySelector(`#${fieldId}-error`);
 
-  if (input) input.classList("input-error");
+  if (input) input.classList.add("input-error");
   if (errorBox) errorBox.textContent = message;
 }
 
@@ -55,3 +55,21 @@ export function clearErrors(form) {
 }
 
 //rececives as an argument whole html form
+
+//Bonus: clear filed errors when user starts fixing it
+export function clearErrorOnInput(form) {
+  form.querySelectorAll(".form__input").forEach((input) => {
+    input.addEventListener("input", () => {
+      // remove red border
+      input.classList.remove("input-error");
+
+      // clear this field's own error message
+      const errorBox = document.querySelector(`#${input.id}-error`);
+      if (errorBox) errorBox.textContent = "";
+
+      // also clear the form-level error
+      const globalError = form.querySelector(".form__error--global");
+      if (globalError) globalError.textContent = "";
+    });
+  });
+}
