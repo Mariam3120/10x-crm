@@ -1,9 +1,11 @@
 //==SIGNUP.js (also import here )
+import { redirectIfLoggedIn } from "./guard.js";
 import { initTheme } from "./theme.js";
 import { getUsers, saveUsers } from "./storage.js";
 import { showToast, showFieldError, clearErrors, clearErrorOnInput } from "./ui.js";
 import { isValidName, isValidEmail, isStrongPassword } from "./validators.js";
 
+function initSignupPage() {
 initTheme();
 
 const signupForm = document.querySelector("#signup-form");
@@ -79,3 +81,10 @@ signupForm.addEventListener("submit", (event) => {
     window.location.href = "index.html";
   }, 1500);
 });
+}
+
+// Public page: only build it if nobody is logged in.
+// If a session exists, redirectIfLoggedIn() sends the user to the dashboard and returns false.
+if (redirectIfLoggedIn()) {
+  initSignupPage();
+}

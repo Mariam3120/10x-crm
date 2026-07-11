@@ -1,9 +1,10 @@
+import { redirectIfLoggedIn } from "./guard.js";
 import { initTheme } from "./theme.js";
 import { getUsers, saveSession } from "./storage.js";
 import { clearErrors, clearErrorOnInput, showFieldError, showFormError} from "./ui.js";
 
+function initLoginPage(){
 initTheme();
-
 const loginForm = document.querySelector('#login-form');
 clearErrorOnInput(loginForm); //bonus: clear filed errors when user starts fixing it
 
@@ -46,3 +47,10 @@ loginForm.addEventListener("submit", (event) => {
   saveSession(session);
   window.location.href = "dashboard.html";
 });
+}
+
+if(redirectIfLoggedIn()) {
+  initLoginPage();
+}
+
+//Only build this page if the user is allowed to be here.
