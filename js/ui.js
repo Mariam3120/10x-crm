@@ -73,3 +73,12 @@ export function clearErrorOnInput(form) {
     });
   });
 }
+
+//Form-level error (e.g invalid email) 
+//writes into <p class="form__error form__error--global"
+
+export function showFormError(form, message){
+  const globalError = form.querySelector(".form__error--global");
+  if(globalError) globalError.textContent = message;
+}
+//this message will be given from login 
