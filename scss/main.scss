@@ -9,5 +9,6 @@
 @use './components/buttons';
 @use './components/forms';
 @use './base/theme-toggle';
+@use './components/toast';
 //layout
 @use './layout/auth';

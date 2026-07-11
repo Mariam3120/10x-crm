@@ -175,6 +175,44 @@ h1, h2, h3 {
   transform: scale(1.05);
 }
 
+.toast-container {
+  position: fixed;
+  bottom: 2.4rem;
+  right: 2.4rem;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.toast {
+  min-width: 28rem;
+  padding: 1.2rem 1.6rem;
+  border-radius: 1rem;
+  color: #fff;
+  font-size: 1.4rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.2rem;
+}
+.toast--success {
+  background-color: var(--success);
+}
+.toast--error {
+  background-color: var(--danger);
+}
+.toast__close {
+  color: inherit;
+  font-size: 1.6rem;
+  line-height: 1;
+  opacity: 0.8;
+}
+.toast__close:hover {
+  opacity: 1;
+}
+
 .auth {
   min-height: 100vh;
   display: flex;
