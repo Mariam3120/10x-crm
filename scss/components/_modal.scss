@@ -1,0 +1,52 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  padding: $space-4;
+  @include flex($justify: center, $align: center);
+}
+
+//this must exist, or the modal is ALWAYS visible. 
+//Adding .modal[hidden] (class + attribute = higher specificity)
+// makes display: none win again
+.modal[hidden] {
+  display: none;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal__box {
+  position: relative;      // lifts the box above the backdrop
+  width: 100%;
+  max-width: 48rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: $space-5;
+  background-color: var(--surface);
+  border: 0.1rem solid var(--border);
+  border-radius: $radius-lg;
+  box-shadow: var(--shadow);
+  @include flex($direction: column, $gap: $space-4);
+}
+
+.modal__header {
+  @include flex($justify: space-between, $align: center, $gap: $space-3);
+}
+
+.modal__title { font-size: $fs-xl; }
+
+.modal__close {
+  font-size: $fs-lg;
+  line-height: 1;
+  color: var(--text-muted);
+  transition: color $transition;
+
+  &:hover { color: var(--text); }
+}
