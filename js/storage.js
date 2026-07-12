@@ -56,7 +56,7 @@ export function saveClients(clients) {
 
 //has client EVER been saved?? (different from is it empty)
 
-export function hasClient(){
+export function hasClients(){
   return localStorage.getItem(KEYS.clients) !== null;
 }
 
