@@ -1,3 +1,4 @@
+@use 'sass:color';
 // ─────────────  SPACING SCALE  ─────────────
 $space-1: 0.4rem;   // 4px
 $space-2: 0.8rem;   // 8px
@@ -33,7 +34,12 @@ $bp-tablet: 768px;
 $bp-desktop: 1024px;
 
 //______________colors_____________
-$color-primary: rgb(114, 80, 252);
-$color-text:rgb(255, 255, 255);
-$color-less-important: rgb(9, 198, 184);
-$color-border: rgb(218, 37, 137);
+// $color-primary: rgb(114, 80, 252);
+// $color-text:rgb(255, 255, 255);
+// $color-less-important: rgb(9, 198, 184);
+// $color-border: rgb(218, 37, 137);
+//______________ BRAND COLORS (same in both themes) _____________
+$color-primary: rgb(114, 80, 252);   // purple — main accent
+$color-primary-hover: color.adjust($color-primary, $lightness: -8%); // auto-darkened
+$color-secondary: rgb(9, 198, 184);  // teal  — secondary highlight
+$color-pink: rgb(218, 37, 137);      // pink  — extra accent

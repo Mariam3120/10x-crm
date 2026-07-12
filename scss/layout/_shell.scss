@@ -1,0 +1,32 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.app {
+  display: grid;
+  grid-template-columns: 24rem 1fr;   // sidebar | content
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: $space-5 $space-4;
+  background-color: var(--surface);
+  border-right: 1px solid var(--border);
+  @include flex($direction: column, $gap: $space-6);
+}
+
+.sidebar__footer {
+  margin-top: auto;                   // pushes this block to the bottom
+  @include flex($direction: column, $gap: $space-3);
+}
+
+.app__main {
+  padding: $space-6;
+}
+
+.page__title {
+  font-size: $fs-2xl;
+  margin-bottom: $space-5;
+}

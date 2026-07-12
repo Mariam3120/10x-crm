@@ -7,17 +7,33 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark and light theme">🌙</button>
+  <div class="app">
 
-  <main class="auth">
-    <section class="auth-card">
-      <h1 class="auth-card__title">Dashboard</h1>
-      <p class="auth-card__subtitle">You are logged in 🎉 (real dashboard coming next)</p>
-      <button id="logout-btn" class="btn btn--primary btn--block" type="button">Log Out</button>
-    </section>
-  </main>
+    <!-- Shared sidebar (identical on Dashboard / Clients / Profile) -->
+    <aside class="sidebar">
+      <a href="dashboard.html" class="logo">10X<span class="logo__accent">CRM</span></a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="dashboard.html" class="nav__link">Dashboard</a>
+        <a href="clients.html" class="nav__link">Clients</a>
+        <a href="profile.html" class="nav__link">Profile</a>
+      </nav>
+
+      <div class="sidebar__footer">
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark and light theme">🌙</button>
+        <button id="logout-btn" class="btn btn--ghost" type="button">Log Out</button>
+      </div>
+    </aside>
+
+    <main class="app__main">
+      <h1 class="page__title">Dashboard</h1>
+      <p>Real dashboard coming in Phase 4 — stats, live clock, pipeline, recent clients.</p>
+    </main>
+
+  </div>
 
   <div id="toast-container" class="toast-container" aria-live="polite"></div>
   <script type="module" src="js/dashboard.js"></script>
 </body>
 </html>
+

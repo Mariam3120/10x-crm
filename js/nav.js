@@ -15,7 +15,7 @@ export function initNav(){
 
   });
   //LOGOUT [remove only the session]
-  const logoutBtn = document.querySelector(".nav__logout");
+  const logoutBtn = document.querySelector("#logout-btn");
   if(logoutBtn){
     logoutBtn.addEventListener("click", () => {
       clearSession();

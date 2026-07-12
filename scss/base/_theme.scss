@@ -3,11 +3,11 @@
 // ─────────  DARK theme = default (:root)  ─────────
 :root {
   // Brand colors — pulled from your SCSS variables via interpolation
-  // --accent: #{$color-primary};
-  // --accent-hover: #{$color-primary-hover};
-  // --accent-2: #{$color-secondary};   // teal
-  // --pink: #{$color-pink};
-  // --accent-contrast: #ffffff;
+  --accent: #{$color-primary};
+  --accent-hover: #{$color-primary-hover};
+  --accent-2: #{$color-secondary};   // teal
+  --pink: #{$color-pink};
+  --accent-contrast: #ffffff;
 
   // Status colors (Lead / Contacted / Won / Lost)
   --lead: #3b82f6;

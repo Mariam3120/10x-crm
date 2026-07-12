@@ -10,5 +10,7 @@
 @use './components/forms';
 @use './base/theme-toggle';
 @use './components/toast';
+@use './components/nav';
+@use './layout/shell';
 //layout
 @use './layout/auth';
