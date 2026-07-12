@@ -53,3 +53,13 @@ export function getClients() {
 export function saveClients(clients) {
   writeJSON(KEYS.clients, clients);
 }
+
+//has client EVER been saved?? (different from is it empty)
+
+export function hasClient(){
+  return localStorage.getItem(KEYS.clients) !== null;
+}
+
+//if checking getClients().length>0 user who would delete them 
+//all those clients would re-fetch, so deletions would come back from dead
+//checking if the key exists correctly distinguishes-never loaded from loaded but empty[]
