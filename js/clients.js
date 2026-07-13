@@ -1,7 +1,7 @@
 import { requireAuth } from "./guard.js";
 import { initTheme } from "./theme.js";
 import { initNav } from "./nav.js";
-import { loadClients, addClientToApi } from "./data.js";
+import { loadClients, addClientToApi, deleteClientFromApi } from "./data.js";
 import { saveClients } from "./storage.js";
 import { isValidName, isValidEmail } from "./validators.js";
 import {
@@ -142,7 +142,7 @@ function initAddClient() {
   });
 
   //CLOSE - X button (data-close-modal)
-  addClientModal.querySelectorAll("[data-close-modal").forEach((element) => {
+  addClientModal.querySelectorAll("[data-close-modal]").forEach((element) => {
     element.addEventListener("click", () => closeModal(addClientModal));
   });
 
@@ -212,15 +212,40 @@ function initAddClient() {
       const savedClient = { ...newClient, id: created.id }; //keep my fields but get id from server
 
       clients.unshift(savedClient); //= newest on top
-      saveClients(clients); 
-      renderClients(clients); 
+      saveClients(clients);
+      renderClients(clients);
 
       closeModal(addClientModal);
       showToast("Client added ✓", "success");
     } catch (error) {
-      onsole.error(error);
+      console.error(error);
       showToast("Could not add client. Please try again.", "error");
     }
+  });
+}
+
+//one listener on the container handles every card's delete btn
+//event delegation
+function initClientActions() {
+  clientsList.addEventListener("click", async (event) => {
+    const deleteBtn = event.target.closest(".client-card__delete");
+    if (!deleteBtn) return; //so if click was somewhere else ignore it
+
+    const card = deleteBtn.closest(".client-card");
+    const id = Number(card.dataset.id); //dataset always string so convert
+
+    if (!confirm("Delete this client? This cannot be undone.")) return;
+
+    try {
+      await deleteClientFromApi(id); //dellete request
+    } catch (error) {
+      console.error(error);
+    }
+
+    clients = clients.filter((client) => client.id !== id); //state
+    saveClients(clients);
+    renderClients(clients);
+    showToast("Client deleted", "success");
   });
 }
 
@@ -228,6 +253,7 @@ function initClientsPage() {
   initTheme();
   initNav();
   initAddClient();
+  initClientActions();
   loadAndRender();
 }
 

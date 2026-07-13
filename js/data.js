@@ -1,6 +1,8 @@
 //here everything about client data, API + model
 import { getClients, saveClients, hasClients } from "./storage.js";
 
+
+
 const API_URL = "https://dummyjson.com/users";
 
 //transfer one raw dummyJSON user into my client model
