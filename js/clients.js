@@ -1,13 +1,26 @@
 import { requireAuth } from "./guard.js";
 import { initTheme } from "./theme.js";
 import { initNav } from "./nav.js";
-import { loadClients } from "./data.js";
+import { loadClients, addClientToApi } from "./data.js";
+import { saveClients } from "./storage.js";
+import { isValidName, isValidEmail } from "./validators.js";
+import {
+  showToast,
+  showFieldError,
+  clearErrors,
+  clearErrorOnInput,
+  openModal,
+  closeModal,
+} from "./ui.js";
 
 //APP state
 let clients = []; //here will be stored 30 clients
 
 //DOM things
 const clientsList = document.querySelector("#clients-list");
+const addClientBtn = document.querySelector("#add-client-btn");
+const addClientModal = document.querySelector("#add-client-modal");
+const addClientForm = document.querySelector("#add-client-form");
 
 //helper funciton for visual(money format)
 function formatMoney(value) {
@@ -108,17 +121,113 @@ async function loadAndRender() {
   showMessage("Loading clients...");
 
   try {
-    clients = await loadClients();   // fill the state
-    renderClients(clients);          // paint the screen
+    clients = await loadClients(); // fill the state
+    renderClients(clients); // paint the screen
   } catch (error) {
     console.error(error);
     showError();
   }
 }
 
+//+ADD CLIENT / modal-open/close and submit
+
+function initAddClient() {
+  clearErrorOnInput(addClientForm);
+
+  //OPEN -reset form so old values/errors don't bother
+  addClientBtn.addEventListener("click", () => {
+    addClientForm.reset();
+    clearErrors(addClientForm);
+    openModal(addClientModal);
+  });
+
+  //CLOSE - X button (data-close-modal)
+  addClientModal.querySelectorAll("[data-close-modal").forEach((element) => {
+    element.addEventListener("click", () => closeModal(addClientModal));
+  });
+
+  //SUBMIT
+  addClientForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    clearErrors(addClientForm);
+
+    //use of .elements
+    const fields = addClientForm.elements;
+
+    const name = fields.name.value.trim();
+    const email = fields.email.value.trim().toLowerCase();
+    const phone = fields.phone.value.trim();
+    const company = fields.company.value.trim();
+    const dealValueRaw = fields.dealValue.value.trim();
+    const status = fields.status.value;
+
+    let isValid = true;
+
+    //CHECKING
+    //name
+    if (!isValidName(name)) {
+      showFieldError("client-name", "Name must be at least 3 characters");
+      isValid = false;
+    }
+
+    //email
+    if (!isValidEmail(email)) {
+      showFieldError("client-email", "Please enter a valid email address");
+      isValid = false;
+    } else if (clients.some((client) => client.email.toLowerCase() === email)) {
+      showFieldError("client-email", "A client with this email already exists");
+      isValid = false;
+    }
+
+    //PHONE (optional but it must be at least 6 char)
+    if (phone !== "" && phone.length < 6) {
+      showFieldError("client-phone", "Phone number looks too short");
+      isValid = false;
+    }
+
+    //DEAL VALUE (must be positive number)
+    const dealValue = Number(dealValueRaw);
+    if (dealValueRaw === "" || isNaN(dealValue) || dealValue <= 0) {
+      showFieldError("client-deal", "Deal value must be a positive number");
+      isValid = false;
+    }
+
+    if (!isValid) return;
+
+    //build CLIENT object (no id yet- server gives it to us)
+    const newClient = {
+      name,
+      email,
+      phone,
+      company,
+      image: `https://dummyjson.com/icon/${encodeURIComponent(name)}/128`,
+      status,
+      dealValue,
+      notes: [],
+      createdAt: new Date().toISOString(),
+    };
+
+    try {
+      const created = await addClientToApi(newClient); //POST to the api
+      const savedClient = { ...newClient, id: created.id }; //keep my fields but get id from server
+
+      clients.unshift(savedClient); //= newest on top
+      saveClients(clients); 
+      renderClients(clients); 
+
+      closeModal(addClientModal);
+      showToast("Client added ✓", "success");
+    } catch (error) {
+      onsole.error(error);
+      showToast("Could not add client. Please try again.", "error");
+    }
+  });
+}
+
 function initClientsPage() {
   initTheme();
   initNav();
+  initAddClient();
   loadAndRender();
 }
 

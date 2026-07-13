@@ -82,3 +82,16 @@ export function showFormError(form, message){
   if(globalError) globalError.textContent = message;
 }
 //this message will be given from login 
+
+
+//=== MODAL helpers 
+export function openModal(modal){
+  modal.hidden = false;
+}
+
+export function closeModal(modal){
+  modal.hidden = true;
+}
+
+//coz i use hidden attribute(open/hide is a single boolean)
+//.modal[hiddne] display none makes it work here
