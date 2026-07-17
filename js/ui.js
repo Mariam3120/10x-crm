@@ -88,6 +88,8 @@ export function showFormError(form, message){
 export function openModal(modal){
   modal.hidden = false;
 }
+//i use html hidden attribute here, so when modal.hidden = false 
+//modal appears, and when it is true, it hides :) 
 
 export function closeModal(modal){
   modal.hidden = true;
