@@ -24,8 +24,8 @@ function mapUserToClient(user) {
   };
 }
 
-//GET initial 30 clients from dummyjson
 
+//GET initial 30 clients from dummyjson
 export async function fetchClientsFromApi() {
   const response = await fetch(`${API_URL}?limit=30`);
   //check if response is not okay

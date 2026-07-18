@@ -38,26 +38,29 @@ function showMessage(text) {
  * create an element with a class and (optionally) safe text.
  * textContent NEVER parses HTML, it inserts the string as literal text.
  */
+
+//build one card element from one client object 
+//no innerHTML - helper function for createClientCard function:)))
 function el(tag, className, text = "") {
   const node = document.createElement(tag);
   node.className = className;
   if (text !== "") node.textContent = text;
   return node;
 }
-//build one card element from one client object
-//no innerHTML
+
+//CREATING one card element for one client object (in total 30 such ones:)
 function createClientCard(client) {
   const card = el("article", "client-card");
   card.dataset.id = client.id;
 
-  //top avatar and name and company
+  //TOP avatar and name and company
   const top = el("div", "client-card__top");
 
   const avatar = el("img", "client-card__avatar");
   avatar.src = client.image;
   avatar.alt = "";
 
-  const info = document.createElement("div");
+  const info = document.createElement("div"); //here again div for flex (avatar and info goes in top)
   info.append(
     el("h2", "client-card__name", client.name),
     el("p", "client-card__company", client.company),
@@ -74,8 +77,8 @@ function createClientCard(client) {
     client.status,
   );
 
-  //footer(deal value + delete btn)
-  const footer = el("div", "client-card__footer");
+  //FOOTER!!(deal value + delete btn)
+  const footer = el("div", "client-card__footer"); 
   const deal = el("span", "client-card__deal", formatMoney(client.dealValue));
 
   const deleteBtn = el("button", "client-card__delete", "🗑");
@@ -89,7 +92,7 @@ function createClientCard(client) {
   return card;
 }
 
-//render a list of clients into page
+//RENDER a list of clients (clients cards) into page
 function renderClients(list) {
   clientsList.innerHTML = ""; //clear the container
 
@@ -102,8 +105,8 @@ function renderClients(list) {
     clientsList.append(createClientCard(client)); //  build + insert each card
   });
 }
-//error state, message + retry button that re-runs
 
+//error state, message + retry button that re-runs
 function showError() {
   clientsList.innerHTML = `
     <div class="clients__message">
@@ -115,8 +118,9 @@ function showError() {
   document.querySelector("#retry-btn").addEventListener("click", loadAndRender);
 }
 
-//load clients (localStorage first, else API) and render them
 
+//LOAD CLIENTS (localStorage first, else API) and render them
+//execute function renderClients(clients) HERE!!!!
 async function loadAndRender() {
   showMessage("Loading clients...");
 
@@ -129,8 +133,8 @@ async function loadAndRender() {
   }
 }
 
-//+ADD CLIENT / modal-open/close and submit
 
+//+ADD CLIENT / modal-open/close and submit
 function initAddClient() {
   clearErrorOnInput(addClientForm);
 
@@ -237,7 +241,7 @@ function initClientActions() {
     if (!confirm("Delete this client? This cannot be undone.")) return;
 
     try {
-      await deleteClientFromApi(id); //dellete request
+      await deleteClientFromApi(id); //delete request
     } catch (error) {
       console.error(error);
     }
