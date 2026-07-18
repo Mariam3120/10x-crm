@@ -42,6 +42,19 @@
   word-break: break-word;
 }
 
+.client-card__status {
+  padding: $space-2 $space-3;
+  border-radius: $radius-md;
+  border: 0.1rem solid var(--border);
+  background-color: var(--surface-2);
+  color: var(--text);
+  font-size: $fs-xs;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+
+
 .client-card__footer {
   @include flex($justify: space-between, $align: center, $gap: $space-3);
   margin-top: auto;                   // pin the footer to the bottom

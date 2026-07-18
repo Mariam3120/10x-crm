@@ -15,12 +15,20 @@ import {
 
 //APP state
 let clients = []; //here will be stored 30 clients
+// ── Toolbar state ──
+let currentStatus = "All";   // which filter chip is active
+let searchTerm = "";         // text in the search box
+let currentSort = "newest";  // selected sort option
 
 //DOM things
 const clientsList = document.querySelector("#clients-list");
 const addClientBtn = document.querySelector("#add-client-btn");
 const addClientModal = document.querySelector("#add-client-modal");
 const addClientForm = document.querySelector("#add-client-form");
+
+const searchInput = document.querySelector("#search-input");
+const sortSelect = document.querySelector("#sort-select");
+const chips = document.querySelectorAll(".chip");
 
 //helper funciton for visual(money format)
 function formatMoney(value) {
@@ -77,6 +85,17 @@ function createClientCard(client) {
     client.status,
   );
 
+    // STATUS dropdown after lead badge
+  const statusSelect = el("select", "client-card__status");
+  ["Lead", "Contacted", "Won", "Lost"].forEach((statusOption) => {
+    const option = el("option", "", statusOption);
+    option.value = statusOption;
+    if (statusOption === client.status) option.selected = true;   // preselect current
+    statusSelect.append(option);
+  });
+
+
+
   //FOOTER!!(deal value + delete btn)
   const footer = el("div", "client-card__footer"); 
   const deal = el("span", "client-card__deal", formatMoney(client.dealValue));
@@ -88,7 +107,7 @@ function createClientCard(client) {
   footer.append(deal, deleteBtn);
 
   //assemble
-  card.append(top, email, badge, footer);
+  card.append(top, email, badge, statusSelect, footer);
   return card;
 }
 
@@ -126,7 +145,8 @@ async function loadAndRender() {
 
   try {
     clients = await loadClients(); // fill the state
-    renderClients(clients); // paint the screen
+    // renderClients(clients); // paint the screen
+    refresh();
   } catch (error) {
     console.error(error);
     showError();
@@ -217,7 +237,8 @@ function initAddClient() {
 
       clients.unshift(savedClient); //= newest on top
       saveClients(clients);
-      renderClients(clients);
+      // renderClients(clients);
+      refresh();
 
       closeModal(addClientModal);
       showToast("Client added ✓", "success");
@@ -248,14 +269,107 @@ function initClientActions() {
 
     clients = clients.filter((client) => client.id !== id); //state
     saveClients(clients);
-    renderClients(clients);
+    // renderClients(clients);
+    refresh();
     showToast("Client deleted", "success");
   });
+
+    // STATUS CHANGE — one listener for every card's dropdown
+  clientsList.addEventListener("change", (event) => {
+    const select = event.target.closest(".client-card__status");
+    if (!select) return;
+
+    const card = select.closest(".client-card");
+    const id = Number(card.dataset.id);
+
+    const client = clients.find((c) => c.id === id);
+    if (!client) return;
+
+    client.status = select.value;   // change status in array
+    saveClients(clients);           //  save new array in localStrg
+    refresh();                      // render
+  });
+
+
 }
+
+//=======================FULL features 
+/**
+ * Apply status filter / search / sort, WITHOUT mutating the original array.
+ * Returns a new array ready to render.
+ */
+function getVisibleClients() {
+  let visible = clients;
+
+  // == Status filter (chips)
+  if (currentStatus !== "All") {
+    visible = visible.filter((client) => client.status === currentStatus);
+  }
+
+  // Search by name OR company (case-insensitive)
+  if (searchTerm !== "") {
+    const term = searchTerm.toLowerCase();
+    visible = visible.filter(
+      (client) =>
+        client.name.toLowerCase().includes(term) ||
+        client.company.toLowerCase().includes(term)
+    );
+  }
+
+  // Sort--- on a COPY, so the original order is never damaged
+  const sorted = [...visible];
+  if (currentSort === "newest") {
+    sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  } else if (currentSort === "name") {
+    sorted.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (currentSort === "deal") {
+    sorted.sort((a, b) => b.dealValue - a.dealValue);
+  }
+
+  return sorted;
+}
+
+/**
+ * Re-render whatever should currently be visible.
+ * Call this after ANY change (toolbar, add, delete).
+ */
+function refresh() {
+  renderClients(getVisibleClients());
+}
+
+
+function initToolbar() {
+  // SEARCH -- fires on every keystroke/paste
+  searchInput.addEventListener("input", () => {
+    searchTerm = searchInput.value.trim();
+    refresh();
+  });
+
+  // SORT
+  sortSelect.addEventListener("change", () => {
+    currentSort = sortSelect.value;
+    refresh();
+  });
+
+  // FILTER CHIPS
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      // move the active class to the clicked chip
+      chips.forEach((c) => c.classList.remove("chip--active"));
+      chip.classList.add("chip--active");
+
+      currentStatus = chip.dataset.status;   // "All" | "Lead" | ...
+      refresh();
+    });
+  });
+}
+
+
 
 function initClientsPage() {
   initTheme();
   initNav();
+  initToolbar();
   initAddClient();
   initClientActions();
   loadAndRender();

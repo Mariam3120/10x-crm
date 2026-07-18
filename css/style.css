@@ -201,6 +201,17 @@ h1, h2, h3 {
   word-break: break-word;
 }
 
+.client-card__status {
+  padding: 0.8rem 1.2rem;
+  border-radius: 1rem;
+  border: 0.1rem solid var(--border);
+  background-color: var(--surface-2);
+  color: var(--text);
+  font-size: 1.2rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
 .client-card__footer {
   display: flex;
   justify-content: space-between;
