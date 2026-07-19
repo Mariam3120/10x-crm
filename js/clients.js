@@ -287,6 +287,21 @@ function initClientActions() {
     const client = clients.find((c) => c.id === id);
     if (client) openDetails(client);
   });
+    // STATUS CHANGE /separate listener; the 'change' event bubbles too
+  clientsList.addEventListener("change", (event) => {
+    const select = event.target.closest(".client-card__status");
+    if (!select) return;
+
+    const card = select.closest(".client-card");
+    const id = Number(card.dataset.id);
+
+    const client = clients.find((c) => c.id === id);
+    if (!client) return;
+
+    client.status = select.value;   
+    saveClients(clients);           
+    refresh();                      
+  });
 }
 
 //=======================FULL features 
