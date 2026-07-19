@@ -1,0 +1,27 @@
+@use '../abstracts/variables' as *;
+
+.profile__info {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+}
+
+.profile__avatar {
+  flex-shrink: 0;
+  width: 7.2rem;
+  height: 7.2rem;
+  border-radius: $radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent);
+  color: var(--accent-contrast);
+  font-size: $fs-xl;
+  font-weight: $fw-bold;
+}
+
+.profile__name { margin-bottom: $space-1; font-size: $fs-lg; font-weight: $fw-semibold; }
+.profile__meta { font-size: $fs-sm; color: var(--text-muted); }
+
+// keep the forms readable (scoped to panels so it won't touch auth/modal forms)
+.panel .form { max-width: 48rem; }
