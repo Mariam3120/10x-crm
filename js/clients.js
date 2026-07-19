@@ -15,7 +15,7 @@ import {
 
 //APP state
 let clients = []; //here will be stored 30 clients
-// ── Toolbar state ──
+//======Toolbar state =====
 let currentStatus = "All";   // which filter chip is active
 let searchTerm = "";         // text in the search box
 let currentSort = "newest";  // selected sort option
@@ -25,10 +25,18 @@ const clientsList = document.querySelector("#clients-list");
 const addClientBtn = document.querySelector("#add-client-btn");
 const addClientModal = document.querySelector("#add-client-modal");
 const addClientForm = document.querySelector("#add-client-form");
-
+//search/sort/chips
 const searchInput = document.querySelector("#search-input");
 const sortSelect = document.querySelector("#sort-select");
 const chips = document.querySelectorAll(".chip");
+//details modal
+// ==== Details modal=====
+const detailsModal = document.querySelector("#details-modal");
+const noteForm = document.querySelector("#note-form");
+const noteInput = document.querySelector("#note-input");
+const remindBtn = document.querySelector("#remind-btn");
+
+let currentClientId = null;   // which client's details are open
 
 //helper funciton for visual(money format)
 function formatMoney(value) {
@@ -37,7 +45,6 @@ function formatMoney(value) {
 
 //show single centered message in list area
 //used for loading clients... and no clients foun!
-
 function showMessage(text) {
   clientsList.innerHTML = `<p class="clients__message">${text}</p>`;
 }
@@ -252,45 +259,34 @@ function initAddClient() {
 //one listener on the container handles every card's delete btn
 //event delegation
 function initClientActions() {
-  clientsList.addEventListener("click", async (event) => {
-    const deleteBtn = event.target.closest(".client-card__delete");
-    if (!deleteBtn) return; //so if click was somewhere else ignore it
-
-    const card = deleteBtn.closest(".client-card");
-    const id = Number(card.dataset.id); //dataset always string so convert
-
-    if (!confirm("Delete this client? This cannot be undone.")) return;
-
-    try {
-      await deleteClientFromApi(id); //delete request
-    } catch (error) {
-      console.error(error);
-    }
-
-    clients = clients.filter((client) => client.id !== id); //state
-    saveClients(clients);
-    // renderClients(clients);
-    refresh();
-    showToast("Client deleted", "success");
-  });
-
-    // STATUS CHANGE — one listener for every card's dropdown
-  clientsList.addEventListener("change", (event) => {
-    const select = event.target.closest(".client-card__status");
-    if (!select) return;
-
-    const card = select.closest(".client-card");
+    clientsList.addEventListener("click", async (event) => {
+    // if not clicked on the card, stop actions
+    const card = event.target.closest(".client-card");
+    if (!card) return;
     const id = Number(card.dataset.id);
 
+    // DELETE logic
+    if (event.target.closest(".client-card__delete")) {
+      if (!confirm("Delete this client? This cannot be undone.")) return;
+      try {
+        await deleteClientFromApi(id);
+      } catch (error) {
+        console.error(error);
+      }
+      clients = clients.filter((client) => client.id !== id);
+      saveClients(clients);
+      refresh();
+      showToast("Client deleted", "success");
+      return;
+    }
+
+    //STATUS dropdown in case client clicked on that and not on card fully 
+    if (event.target.closest(".client-card__status")) return;
+
+    // Otherwise -> open the details modal (if not clicked on delete or status badge)
     const client = clients.find((c) => c.id === id);
-    if (!client) return;
-
-    client.status = select.value;   // change status in array
-    saveClients(clients);           //  save new array in localStrg
-    refresh();                      // render
+    if (client) openDetails(client);
   });
-
-
 }
 
 //=======================FULL features 
@@ -364,7 +360,79 @@ function initToolbar() {
   });
 }
 
+//===========================DETAILS MODAL 
+// rendering NOTES for each client
+function renderNotes(client) {
+  const notesList = document.querySelector("#notes-list");
+  notesList.innerHTML = "";
 
+  if (client.notes.length === 0) {
+    notesList.append(el("p", "notes__empty", "No notes yet."));
+    return;
+  }
+
+  client.notes.forEach((note) => {
+    const item = el("li", "notes__item", note.text);
+    item.append(el("span", "notes__date", note.date));
+    notesList.append(item);
+  });
+}
+
+/**
+ * Fill the details modal from a client object and open it.
+ */
+function openDetails(client) {
+  currentClientId = client.id;
+
+  document.querySelector("#details-avatar").src = client.image;
+  document.querySelector("#details-name").textContent = client.name;
+  document.querySelector("#details-company").textContent = client.company;
+  document.querySelector("#details-email").textContent = client.email;
+  document.querySelector("#details-phone").textContent = client.phone || "—";
+  document.querySelector("#details-status").textContent = client.status;
+  document.querySelector("#details-deal").textContent = formatMoney(client.dealValue);
+  document.querySelector("#details-since").textContent =
+  new Date(client.createdAt).toLocaleDateString();
+
+  renderNotes(client);
+  openModal(detailsModal);
+}
+
+function initDetails() {
+  // Close (✕ or backdrop)
+  detailsModal.querySelectorAll("[data-close-modal]").forEach((element) => {
+    element.addEventListener("click", () => closeModal(detailsModal));
+  });
+
+  // ADD NOTE
+  noteForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const text = noteInput.value.trim();
+    if (text === "") return;   // empty notes are ignored
+
+    const client = clients.find((c) => c.id === currentClientId);
+    if (!client) return;
+
+    client.notes.push({ text, date: new Date().toLocaleString() }); // add note
+    saveClients(clients);                                            // save
+    renderNotes(client);                                            // render
+    noteForm.reset();
+  });
+
+  // REMINDER / fires even if the modal is closed
+  remindBtn.addEventListener("click", () => {
+    const client = clients.find((c) => c.id === currentClientId);
+    if (!client) return;
+
+    const name = client.name;   // capture now, in case they close the modal
+    showToast("Reminder set ✓", "success");
+
+    setTimeout(() => {
+      showToast(`⏰ Follow up: ${name}`, "success");
+    }, 60000); 
+  });
+}
 
 function initClientsPage() {
   initTheme();
@@ -372,6 +440,7 @@ function initClientsPage() {
   initToolbar();
   initAddClient();
   initClientActions();
+  initDetails();
   loadAndRender();
 }
 
