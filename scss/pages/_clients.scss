@@ -2,6 +2,12 @@
 @use '../abstracts/mixins' as *;
 
 .page__header {
+  @include respond($bp-tablet) {
+  .page__header {
+    flex-wrap: wrap;              // "+ Add Client" drops below the title if needed
+  }
+}
+
   @include flex($justify: space-between, $align: center, $gap: $space-4);
   margin-bottom: $space-5;
 

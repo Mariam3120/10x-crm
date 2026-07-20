@@ -12,8 +12,7 @@
 }
 
 .auth-card {
-  width: 100%;
-  max-width: 42rem; // ~420px(PRD require)
+  width: clamp(28rem, 90vw, 42rem); 
   padding: $space-6;
   background-color: var(--surface);
   border: 0.1rem solid $color-primary;

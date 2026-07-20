@@ -7,3 +7,11 @@
   @if $wrap      { flex-wrap: $wrap; }
   @if $gap       { gap: $gap; }
 }
+
+
+// Media-query helper: @include respond($bp-tablet)
+@mixin respond($max) {
+  @media (max-width: $max) {
+    @content;
+  }
+}

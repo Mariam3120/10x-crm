@@ -30,3 +30,37 @@
   font-size: $fs-2xl;
   margin-bottom: $space-5;
 }
+// On tablet and below: sidebar becomes a top bar
+@include respond($bp-tablet) {
+  .app {
+    grid-template-columns: 1fr;   // one column, stacked
+  }
+
+  .sidebar {
+    position: static;             // stop being sticky/full-height
+    height: auto;
+    flex-direction: row;          // logo | nav | footer in a row
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $space-3;
+    border-right: none;
+    border-bottom: 0.1rem solid var(--border);
+  }
+
+  .nav {
+    flex-direction: row;          // links side by side
+    flex-wrap: wrap;
+    gap: $space-2;
+  }
+
+  .sidebar__footer {
+    margin-top: 0;                // was auto (pushed to bottom)
+    margin-left: auto;            // now push toggle + logout to the right
+    flex-direction: row;
+  }
+
+  .app__main {
+    padding: $space-4;            // tighter padding on small screens
+  }
+}
+
