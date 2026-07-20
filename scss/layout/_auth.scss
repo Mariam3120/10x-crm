@@ -16,7 +16,7 @@
   max-width: 42rem; // ~420px(PRD require)
   padding: $space-6;
   background-color: var(--surface);
-  border: 1px solid $color-primary;
+  border: 0.1rem solid $color-primary;
   border-radius: $radius-lg;
   box-shadow: var(--shadow);
   @include flex($direction: column, $gap: $space-5);
@@ -30,11 +30,11 @@
 .logo {
   font-size: $fs-xl;
   font-weight: $fw-bold;
-  // animation: pulseAndPause 3s infinite ease-in-out;
   &__letter {
     display: inline-block;
     transform-origin: center;
     animation: pulseAndPause 3s infinite ease-in-out;
+    margin: 0  0.2rem;
     color: $color-primary;
   }
   &__accent {

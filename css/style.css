@@ -529,7 +529,7 @@ h1, h2, h3 {
   height: 100vh;
   padding: 2.4rem 1.6rem;
   background-color: var(--surface);
-  border-right: 1px solid var(--border);
+  border-right: 0.1rem solid var(--border);
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
@@ -568,7 +568,7 @@ h1, h2, h3 {
   max-width: 42rem;
   padding: 3.2rem;
   background-color: var(--surface);
-  border: 1px solid rgb(114, 80, 252);
+  border: 0.1rem solid rgb(114, 80, 252);
   border-radius: 1.6rem;
   box-shadow: var(--shadow);
   display: flex;
@@ -592,6 +592,7 @@ h1, h2, h3 {
   display: inline-block;
   transform-origin: center;
   animation: pulseAndPause 3s infinite ease-in-out;
+  margin: 0 0.2rem;
   color: rgb(114, 80, 252);
 }
 .logo__accent {
