@@ -10,10 +10,10 @@
   --accent-contrast: #ffffff;
 
   // Status colors (Lead / Contacted / Won / Lost)
-  --lead: #3b82f6;
-  --contacted: #f59e0b;
-  --won: #22c55e;
-  --lost: #ef4444;
+  --lead: #{$color-pink};
+  --contacted: #{$color-yellow};
+  --won: #{$color-secondary};
+  --lost: #{$color-red};
   --success: #22c55e;
   --danger: #ef4444;
 

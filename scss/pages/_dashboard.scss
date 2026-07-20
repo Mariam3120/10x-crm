@@ -16,7 +16,16 @@
   border: 0.1rem solid var(--border);
   border-radius: $radius-lg;
   box-shadow: var(--shadow);
+  backdrop-filter: blur(1rem); 
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover{
+       transform: translateY(-0.6rem); 
+  border-color: rgb(9, 198, 184); 
+  box-shadow: 0 1rem 2rem rgba(9, 198, 184, 0.2), 
+  
+  }
 }
+
 .stat-card__label { margin-bottom: $space-2; font-size: $fs-sm; color: var(--text-muted); }
 .stat-card__value { font-size: $fs-2xl; font-weight: $fw-bold; }
 

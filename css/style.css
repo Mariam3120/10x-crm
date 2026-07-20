@@ -43,10 +43,10 @@ label {
   --accent-2: rgb(9, 198, 184);
   --pink: rgb(218, 37, 137);
   --accent-contrast: #ffffff;
-  --lead: #3b82f6;
-  --contacted: #f59e0b;
-  --won: #22c55e;
-  --lost: #ef4444;
+  --lead: rgb(218, 37, 137);
+  --contacted: rgb(186, 174, 67);
+  --won: rgb(9, 198, 184);
+  --lost: rgb(206, 42, 76);
   --success: #22c55e;
   --danger: #ef4444;
   --bg: #0f1117;
@@ -718,6 +718,13 @@ h1, h2, h3 {
   border: 0.1rem solid var(--border);
   border-radius: 1.6rem;
   box-shadow: var(--shadow);
+  backdrop-filter: blur(1rem);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.stat-card:hover {
+  transform: translateY(-0.6rem);
+  border-color: rgb(9, 198, 184);
+  box-shadow: 0 1rem 2rem rgba(9, 198, 184, 0.2);
 }
 
 .stat-card__label {
