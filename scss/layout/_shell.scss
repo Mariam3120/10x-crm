@@ -3,7 +3,7 @@
 
 .app {
   display: grid;
-  grid-template-columns: 24rem 1fr;   // sidebar | content
+  grid-template-columns: 24rem 1fr;
   min-height: 100vh;
 }
 
@@ -18,49 +18,64 @@
 }
 
 .sidebar__footer {
-  margin-top: auto;                   // pushes this block to the bottom
+  margin-top: auto;
   @include flex($direction: column, $gap: $space-3);
 }
 
-.app__main {
-  padding: $space-6;
+.app__main { padding: $space-6; }
+
+.page__title { font-size: $fs-2xl; margin-bottom: $space-5; }
+
+// Hamburger + backdrop — hidden on desktop
+.menu-toggle {
+  display: none;                 // shown only on mobile
+  position: fixed;
+  top: $space-4;
+  left: $space-4;
+  z-index: 500;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: $radius-md;
+  background-color: var(--surface);
+  border: 0.1rem solid var(--border);
+  color: var(--text);
+  font-size: $fs-lg;
+  align-items: center;
+  justify-content: center;
 }
 
-.page__title {
-  font-size: $fs-2xl;
-  margin-bottom: $space-5;
+.sidebar-backdrop {
+  display: none;                 // shown only when the drawer is open
+  position: fixed;
+  inset: 0;
+  z-index: 350;
+  background-color: rgba(0, 0, 0, 0.5);
 }
-// On tablet and below: sidebar becomes a top bar
+
+// ── Mobile: sidebar becomes a sliding drawer ──
 @include respond($bp-tablet) {
-  .app {
-    grid-template-columns: 1fr;   // one column, stacked
-  }
+  .app { grid-template-columns: 1fr; }
+
+  .menu-toggle { display: flex; }
 
   .sidebar {
-    position: static;             // stop being sticky/full-height
-    height: auto;
-    flex-direction: row;          // logo | nav | footer in a row
-    align-items: center;
-    flex-wrap: wrap;
-    gap: $space-3;
-    border-right: none;
-    border-bottom: 0.1rem solid var(--border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 24rem;
+    height: 100vh;
+    padding-top: 7rem;
+    transform: translateX(-100%);        // parked off-screen to the left
+    transition: transform $transition;
+    z-index: 400;
   }
 
-  .nav {
-    flex-direction: row;          // links side by side
-    flex-wrap: wrap;
-    gap: $space-2;
-  }
+  .sidebar--open { transform: translateX(0); }        // slid into view
 
-  .sidebar__footer {
-    margin-top: 0;                // was auto (pushed to bottom)
-    margin-left: auto;            // now push toggle + logout to the right
-    flex-direction: row;
-  }
+  .sidebar-backdrop--visible { display: block; }
 
   .app__main {
-    padding: $space-4;            // tighter padding on small screens
+    padding: $space-4;
+    padding-top: 7rem;           // leave room for the fixed hamburger
   }
 }
-
