@@ -1,9 +1,15 @@
-@use '../abstracts/variables' as *;
+@use "../abstracts/variables" as *;
+
+.profile-page {
+  max-width: 70rem; // whole column width
+}
 
 .profile__info {
   display: flex;
   align-items: center;
   gap: $space-4;
+  width: 100%;
+  border: 0.1rem solid $color-secondary;
 }
 
 .profile__avatar {
@@ -20,8 +26,25 @@
   font-weight: $fw-bold;
 }
 
-.profile__name { margin-bottom: $space-1; font-size: $fs-lg; font-weight: $fw-semibold; }
-.profile__meta { font-size: $fs-sm; color: var(--text-muted); }
+.profile__name {
+  margin-bottom: $space-1;
+  font-size: $fs-lg;
+  font-weight: $fw-semibold;
+}
+.profile__meta {
+  font-size: $fs-sm;
+  color: var(--text-muted);
+}
 
 // keep the forms readable (scoped to panels so it won't touch auth/modal forms)
-.panel .form { max-width: 48rem; }
+.panel .form {
+  max-width: 100%;
+}
+
+.colored-panel {
+  border: 0.1rem solid $color-primary;
+}
+
+.colored-ps {
+  border: 0.1rem solid $color-yellow;
+}

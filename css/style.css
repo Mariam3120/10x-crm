@@ -879,10 +879,16 @@ h1, h2, h3 {
   color: var(--text-muted);
 }
 
+.profile-page {
+  max-width: 70rem;
+}
+
 .profile__info {
   display: flex;
   align-items: center;
   gap: 1.6rem;
+  width: 100%;
+  border: 0.1rem solid rgb(9, 198, 184);
 }
 
 .profile__avatar {
@@ -911,7 +917,15 @@ h1, h2, h3 {
 }
 
 .panel .form {
-  max-width: 48rem;
+  max-width: 100%;
+}
+
+.colored-panel {
+  border: 0.1rem solid rgb(114, 80, 252);
+}
+
+.colored-ps {
+  border: 0.1rem solid rgb(186, 174, 67);
 }
 
 /*# sourceMappingURL=style.css.map */
