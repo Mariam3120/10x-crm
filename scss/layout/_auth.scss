@@ -30,6 +30,7 @@
 .logo {
   font-size: $fs-xl;
   font-weight: $fw-bold;
+  // animation: pulseAndPause 3s infinite ease-in-out;
   &__letter {
     display: inline-block;
     transform-origin: center;
