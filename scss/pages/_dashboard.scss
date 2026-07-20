@@ -19,10 +19,9 @@
   backdrop-filter: blur(1rem); 
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   &:hover{
-       transform: translateY(-0.6rem); 
+  transform: translateY(-0.6rem); 
   border-color: rgb(9, 198, 184); 
-  box-shadow: 0 1rem 2rem rgba(9, 198, 184, 0.2), 
-  
+  box-shadow: 0 1rem 2rem rgba(9, 198, 184, 0.2); 
   }
 }
 
@@ -37,7 +36,9 @@
   border-radius: $radius-lg;
 }
 .panel__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: $space-4; }
-.panel__title { font-size: $fs-lg; }
+.panel__title { font-size: $fs-lg; 
+  padding-bottom: 1rem;
+}
 
 .pipeline {
   display: grid;
