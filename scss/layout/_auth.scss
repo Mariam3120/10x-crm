@@ -43,6 +43,7 @@
 
 .auth-card__title {
   font-size: $fs-2xl;
+  
 }
 .auth-card__subtitle {
   font-size: $fs-sm;
@@ -62,6 +63,26 @@
     text-decoration: underline;
   }
 }
+
+//---
+.letter {
+  display: inline-block;        // required — transforms don't apply to inline
+  opacity: 0;                   // start invisible
+  animation: letterFadeIn 0.5s ease forwards;
+}
+
+@keyframes letterFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.8rem);   // slide up slightly
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 
 @keyframes pulseAndPause {
   0%, 100% {

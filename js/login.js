@@ -1,10 +1,11 @@
 import { redirectIfLoggedIn } from "./guard.js";
 import { initTheme } from "./theme.js";
 import { getUsers, saveSession } from "./storage.js";
-import { clearErrors, clearErrorOnInput, showFieldError, showFormError} from "./ui.js";
+import { clearErrors, clearErrorOnInput, showFieldError, showFormError, animateLetters} from "./ui.js";
 
 function initLoginPage(){
 initTheme();
+animateLetters(document.querySelector("#auth-title"));
 const loginForm = document.querySelector('#login-form');
 clearErrorOnInput(loginForm); //bonus: clear filed errors when user starts fixing it
 

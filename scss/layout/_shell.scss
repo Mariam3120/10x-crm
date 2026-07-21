@@ -24,7 +24,17 @@
 
 .app__main { padding: $space-6; }
 
-.page__title { font-size: $fs-2xl; margin-bottom: $space-5; }
+.page__title { font-size: $fs-2xl; 
+  margin-bottom: $space-5; 
+  width: fit-content;
+  background: linear-gradient(135deg, rgb(114, 80, 252), rgb(218, 37, 137));
+  
+  -webkit-background-clip: text;
+  background-clip: text;
+  
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
 
 // Hamburger + backdrop — hidden on desktop
 .menu-toggle {

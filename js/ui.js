@@ -97,3 +97,27 @@ export function closeModal(modal){
 
 //coz i use hidden attribute(open/hide is a single boolean)
 //.modal[hiddne] display none makes it work here
+
+/**
+ * Split an element's text into <span> letters so each can animate separately.
+ * @param {HTMLElement} element
+ * @param {number} step - delay between letters, in seconds
+ */
+export function animateLetters(element, step = 0.06) {
+  if (!element) return;
+
+  const text = element.textContent;
+
+  // Keep the full text for screen readers, hide the letter spans from them
+  element.setAttribute("aria-label", text);
+  element.textContent = "";
+
+  [...text].forEach((char, index) => {
+    const span = document.createElement("span");
+    span.className = "letter";
+    span.textContent = char === " " ? "\u00A0" : char;   // keep spaces visible
+    span.style.animationDelay = `${index * step}s`;       // the stagger
+    span.setAttribute("aria-hidden", "true");
+    element.append(span);
+  });
+}
