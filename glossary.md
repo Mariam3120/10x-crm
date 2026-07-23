@@ -51,3 +51,5 @@ event listener ელოდება მომხმარებლის მო
 
 Publishing the app to a live server so anyone can open it with a URL.
 deployment არის აპლიკაციის გამოქვეყნება ცოცხალ სერვერზე, რომ ნებისმიერმა შეძლოს URL-ით გახსნა.
+
+
