@@ -23,14 +23,7 @@ export function initNav(){
     });
   }
 
-}
-
-//pro chain version
-// logoutBtn?.addEventListener("click", () => {
-//     clearSession();
-//     window.location.href = "index.html";
-//   });
-  // ── Mobile drawer ──
+    // ── Mobile drawer ──
   const menuToggle = document.querySelector("#menu-toggle");
   const sidebar = document.querySelector(".sidebar");
   const backdrop = document.querySelector("#sidebar-backdrop");
@@ -54,3 +47,12 @@ export function initNav(){
   document.querySelectorAll(".nav__link").forEach((link) => {
     link.addEventListener("click", closeMenu);
   });
+
+}
+
+//pro chain version
+// logoutBtn?.addEventListener("click", () => {
+//     clearSession();
+//     window.location.href = "index.html";
+//   });
+
