@@ -1,7 +1,38 @@
 @use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use 'sass:color';
+
 
 .profile-page {
-  max-width: 70rem; // whole column width
+  max-width: 92rem;
+}
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: 1fr 28rem; // content wider than the image
+  gap: $space-6;
+  align-items: start; // vertically center the image next to the panels
+}
+
+.profile-aside {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-illustration {
+  width: 100%;
+  max-width: 28rem;
+  animation: float 4s ease-in-out infinite; 
+  margin: 2rem 0 0 15rem;
+}
+body.light .profile-illustration {
+  background: linear-gradient(
+    135deg,
+    color.adjust($color-primary, $lightness: -18%),   // darker purple
+    color.adjust($color-pink,    $lightness: -18%)     // darker pink
+  );    
+  padding: $space-5;
+  border-radius: $radius-lg;
 }
 
 .profile__info {
@@ -34,6 +65,7 @@
 .profile__meta {
   font-size: $fs-sm;
   color: var(--text-muted);
+  margin-bottom: 2rem;
 }
 
 // keep the forms readable (scoped to panels so it won't touch auth/modal forms)
@@ -47,4 +79,29 @@
 
 .colored-ps {
   border: 0.1rem solid $color-yellow;
+}
+
+
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1.5rem);
+  }
+}
+
+// On tablet/mobile
+@include respond($bp-tablet) {
+  .profile-layout {
+    grid-template-columns: 1fr; // single column
+  }
+  .profile-aside {
+    order: -1; // move image above 
+  }
+  .profile-illustration {
+    max-width: 20rem; // smaller on mobile
+  }
 }

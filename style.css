@@ -902,32 +902,7 @@ h1, h2, h3 {
 }
 
 .profile-page {
-  max-width: 92rem;
-}
-
-.profile-layout {
-  display: grid;
-  grid-template-columns: 1fr 28rem;
-  gap: 3.2rem;
-  align-items: start;
-}
-
-.profile-aside {
-  display: flex;
-  justify-content: center;
-}
-
-.profile-illustration {
-  width: 100%;
-  max-width: 28rem;
-  animation: float 4s ease-in-out infinite;
-  margin: 2rem 0 0 15rem;
-}
-
-body.light .profile-illustration {
-  background: linear-gradient(135deg, rgb(49.9292134831, 4.0483146067, 236.1516853933), rgb(139.52, 23.68, 87.68));
-  padding: 2.4rem;
-  border-radius: 1.6rem;
+  max-width: 70rem;
 }
 
 .profile__info {
@@ -961,7 +936,6 @@ body.light .profile-illustration {
 .profile__meta {
   font-size: 1.4rem;
   color: var(--text-muted);
-  margin-bottom: 2rem;
 }
 
 .panel .form {
@@ -974,6 +948,24 @@ body.light .profile-illustration {
 
 .colored-ps {
   border: 0.1rem solid rgb(186, 174, 67);
+}
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3.2rem;
+  align-items: center;
+}
+
+.profile-aside {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-illustration {
+  width: 100%;
+  max-width: 32rem;
+  animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
