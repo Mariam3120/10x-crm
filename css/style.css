@@ -924,7 +924,6 @@ h1, h2, h3 {
   width: 100%;
   max-width: 28rem;
   animation: float 4s ease-in-out infinite;
-  margin: 2rem 0 0 15rem;
 }
 
 body.light .profile-illustration {
