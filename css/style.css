@@ -738,6 +738,9 @@ h1, h2, h3 {
 
 .toolbar__sort {
   flex: 0 0 auto;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 3.2rem;
 }
 
 .chips {

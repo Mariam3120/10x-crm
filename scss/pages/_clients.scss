@@ -1,17 +1,19 @@
-@use '../abstracts/variables' as *;
-@use '../abstracts/mixins' as *;
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
 
 .page__header {
   @include respond($bp-tablet) {
-  .page__header {
-    flex-wrap: wrap;              // "+ Add Client" drops below the title if needed
+    .page__header {
+      flex-wrap: wrap; // "+ Add Client" drops below the title if needed
+    }
   }
-}
 
   @include flex($justify: space-between, $align: center, $gap: $space-4);
   margin-bottom: $space-5;
 
-  .page__title { margin-bottom: 0; }   // header owns the spacing
+  .page__title {
+    margin-bottom: 0;
+  } // header owns the spacing
 }
 
 //  search | chips | sort
@@ -20,8 +22,15 @@
   margin-bottom: $space-5;
 }
 
-.toolbar__search { flex: 1 1 24rem; }   // grows to fill leftover space
-.toolbar__sort   { flex: 0 0 auto; }
+.toolbar__search {
+  flex: 1 1 24rem;
+} // grows to fill leftover space
+.toolbar__sort {
+  flex: 0 0 auto;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: $space-6;
+}
 
 .chips {
   @include flex($gap: $space-2, $wrap: wrap);
@@ -35,7 +44,10 @@
   color: var(--text-muted);
   font-size: $fs-sm;
   font-weight: $fw-medium;
-  transition: background-color $transition, color $transition, border-color $transition;
+  transition:
+    background-color $transition,
+    color $transition,
+    border-color $transition;
 
   &:hover {
     color: var(--text);
@@ -58,7 +70,7 @@
 
 // Loading clients... / No clients found. / error text
 .clients__message {
-  grid-column: 1 / -1;        // span every column
+  grid-column: 1 / -1; // span every column
   padding: $space-6;
   text-align: center;
   color: var(--text-muted);
